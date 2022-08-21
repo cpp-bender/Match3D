@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c25967533b16cc468644eb051a57b6d, type: 3}
   m_Name: Drag Data
   m_EditorClassIdentifier: 
-  offset: {x: 0, y: 0, z: 1}
+  offset: {x: 0, y: 0, z: 0}
   maxHeight: 3
-  duration: 0.1
+  duration: 0.05
