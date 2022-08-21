@@ -132,3 +132,5 @@ MonoBehaviour:
   dragData: {fileID: 11400000, guid: 6707494b542faf44f977227e4e66dbd2, type: 2}
   selectedMat: {fileID: 2100000, guid: 2b8b242f48474024eba3e6dca705773d, type: 2}
   unSelectedMat: {fileID: 2100000, guid: 85e0d7392317b0645a3bb49447872883, type: 2}
+  stopMat: {fileID: 2100000, guid: 180bf8d67a72e5c4988e0382cc327e72, type: 2}
+  mousePos: 0
