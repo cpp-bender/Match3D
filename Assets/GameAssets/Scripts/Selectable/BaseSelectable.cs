@@ -6,8 +6,6 @@ namespace Match3D
     public abstract class BaseSelectable : MonoBehaviour
     {
         [Header("DEPENDENCIES")]
-        [SerializeField] MeshRenderer meshRenderer;
-        [SerializeField] Rigidbody body;
         [SerializeField] DragData dragData;
 
         [Header("DEBUG")]
@@ -16,7 +14,15 @@ namespace Match3D
         [SerializeField] protected Material stopMat;
         [SerializeField] MousePos mousePos;
 
+        private MeshRenderer meshRenderer;
+        private Rigidbody body;
         private Vector3 velocity = Vector3.zero;
+
+        private void Awake()
+        {
+            meshRenderer = GetComponent<MeshRenderer>();
+            body = GetComponent<Rigidbody>();
+        }
 
         private MousePos GetDir()
         {
@@ -75,7 +81,7 @@ namespace Match3D
             return Camera.main.ScreenToWorldPoint(sMousePos);
         }
 
-        protected void DragInsideSafeArea()
+        protected void OnDraggingInsideSafeArea()
         {
             //TODO: Refactor
             Vector3 tPos = GetMouseWorldPos() + dragData.Offset;
@@ -83,7 +89,7 @@ namespace Match3D
             transform.position = Vector3.SmoothDamp(transform.position, tPos, ref velocity, dragData.Duration);
         }
 
-        protected void DragOutsideSafeArea()
+        protected void OnDraggingOutsideSafeArea()
         {
             //TODO: Refactor
             Vector3 tPos = GetMouseWorldPos() + dragData.Offset;
@@ -112,21 +118,21 @@ namespace Match3D
 
             if ((vPos.x >= minX && vPos.x <= maxX) && (vPos.y >= minY && vPos.y < maxY))
             {
-                SetMat(selectedMat);
+                SetMaterial(selectedMat);
                 return true;
             }
 
             else if ((vPos2.x >= minX && vPos2.x <= maxX) && (vPos2.y >= minY && vPos2.y < maxY))
             {
-                SetMat(selectedMat);
+                SetMaterial(selectedMat);
                 return true;
             }
 
-            SetMat(stopMat);
+            SetMaterial(stopMat);
             return false;
         }
 
-        protected void SetMat(Material material)
+        protected void SetMaterial(Material material)
         {
             meshRenderer.material = material;
         }

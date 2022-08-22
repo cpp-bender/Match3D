@@ -8,24 +8,24 @@ namespace Match3D
         private void OnMouseDown()
         {
             SetRigidbody(true);
-            SetMat(selectedMat);
+            SetMaterial(selectedMat);
         }
 
         private void OnMouseUp()
         {
             SetRigidbody(false);
-            SetMat(unSelectedMat);
+            SetMaterial(unSelectedMat);
         }
 
         private void OnMouseDrag()
         {
             if (IsInsideSafeArea())
             {
-                DragInsideSafeArea();
+                OnDraggingInsideSafeArea();
             }
             else
             {
-                DragOutsideSafeArea();
+                OnDraggingOutsideSafeArea();
             }
         }
     }
