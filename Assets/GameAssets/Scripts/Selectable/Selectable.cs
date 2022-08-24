@@ -19,7 +19,7 @@ namespace Match3D
 
         private void OnMouseDrag()
         {
-            if (IsInsideSafeArea())
+            if (IsMouseInsideSafeArea())
             {
                 OnDraggingInsideSafeArea();
             }
