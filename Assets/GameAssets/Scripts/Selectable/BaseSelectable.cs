@@ -23,7 +23,7 @@ namespace Match3D
             get
             {
                 Vector3 mouseScreenPos = Input.mousePosition;
-                mouseScreenPos.z = Camera.main.WorldToScreenPoint(transform.position).z;
+                mouseScreenPos.z = mainCam.WorldToScreenPoint(transform.position).z;
                 return Camera.main.ScreenToWorldPoint(mouseScreenPos);
             }
         }
@@ -31,7 +31,7 @@ namespace Match3D
         {
             get
             {
-                return Camera.main.ScreenToViewportPoint(Input.mousePosition);
+                return mainCam.ScreenToViewportPoint(Input.mousePosition);
             }
         }
 
@@ -52,6 +52,80 @@ namespace Match3D
         protected void OnDraggingOutsideSafeArea()
         {
             //TODO: Complete
+            Vector3 tPos = MouseWorldPos;
+
+            if ((IsDown() || IsUp()) && (IsRight() || IsLeft()))
+            {
+                tPos = new Vector3(transform.position.x, dragData.MaxHeight, transform.position.z);
+            }
+
+            else if (IsLeft() || IsRight())
+            {
+                tPos = new Vector3(transform.position.x, dragData.MaxHeight, MouseWorldPos.z);
+            }
+
+            else if (IsUp() || IsDown())
+            {
+                tPos = new Vector3(MouseWorldPos.x, dragData.MaxHeight, transform.position.z);
+            }
+
+            transform.position = Vector3.SmoothDamp(transform.position, tPos, ref velocity, dragData.Duration);
+        }
+
+        private bool IsLeft()
+        {
+            float vMinx = dragData.MinX;
+
+            Vector3 temp = Camera.main.WorldToViewportPoint(transform.position);
+
+            if (temp.x <= vMinx)
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+        private bool IsRight()
+        {
+            float vMaxX = dragData.MaxX;
+
+            Vector3 temp = Camera.main.WorldToViewportPoint(transform.position);
+
+            if (temp.x >= vMaxX)
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+        private bool IsUp()
+        {
+            float vMaxY = dragData.MaxY;
+
+            Vector3 temp = Camera.main.WorldToViewportPoint(transform.position);
+
+            if (temp.y >= vMaxY)
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+        private bool IsDown()
+        {
+            float vMinY = dragData.MinY;
+
+            Vector3 temp = Camera.main.WorldToViewportPoint(transform.position);
+
+            if (temp.y <= vMinY)
+            {
+                return true;
+            }
+
+            return false;
         }
 
         protected bool IsMouseInsideSafeArea()
