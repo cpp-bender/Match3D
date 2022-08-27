@@ -7,26 +7,19 @@ namespace Match3D
     {
         private void OnMouseDown()
         {
-            SetRigidbody(true);
+            body.useGravity = false;
             SetMaterial(selectedMat);
         }
 
         private void OnMouseUp()
         {
-            SetRigidbody(false);
+            body.useGravity = true;
             SetMaterial(unSelectedMat);
         }
 
         private void OnMouseDrag()
         {
-            if (IsMouseInsideSafeArea())
-            {
-                OnDraggingInsideSafeArea();
-            }
-            else
-            {
-                OnDraggingOutsideSafeArea();
-            }
+            OnDragging();
         }
     }
 }

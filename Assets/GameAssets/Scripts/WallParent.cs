@@ -6,7 +6,7 @@ namespace Match3D
     {
         public Transform[] walls;
 
-        private void OnDrawGizmosSelected()
+        private void OnDrawGizmos()
         {
             foreach (Transform wall in walls)
             {
