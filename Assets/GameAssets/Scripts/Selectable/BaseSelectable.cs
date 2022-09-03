@@ -6,6 +6,7 @@ namespace Match3D
     {
         [Header("DEPENDENCIES")]
         [SerializeField] DragData dragData;
+        [SerializeField] int id;
 
         [Header("DEBUG")]
         [SerializeField] protected Material selectedMat;
@@ -26,6 +27,8 @@ namespace Match3D
                 return Camera.main.ScreenToWorldPoint(mouseScreenPos);
             }
         }
+
+        public int Id { get => id; }
 
         private void Awake()
         {
