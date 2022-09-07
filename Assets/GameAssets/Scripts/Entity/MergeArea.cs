@@ -4,45 +4,34 @@ namespace Match3D
 {
     public class MergeArea : MonoBehaviour
     {
-        [Header("DEPENDENCIES")]
-        public Selectable[] currentSelectables = new Selectable[2];
-        public int index = 0;
+        [Header("COMPONENTS")]
+        public Collider col;
+
+        [Header("DEBUG")]
+        public Selectable[] currentSelectables;
+        public Vector3[] selectablePos;
+        public int index;
 
         private void Awake()
         {
             currentSelectables = new Selectable[2];
+            selectablePos = new Vector3[]
+                { transform.TransformPoint(-transform.right),
+                transform.TransformPoint(transform.right) };
         }
 
         private void OnTriggerEnter(Collider other)
         {
-            if (other.CompareTag(Tags.Selectable) && index <= 2)
+            if (other.CompareTag(Tags.Selectable))
             {
-                Vector3 pos = Vector3.zero;
-
-                if (index == 0)
-                {
-                    pos = transform.TransformPoint(-transform.right);
-                }
-                else
-                {
-                    pos = transform.TransformPoint(transform.right);
-                }
-
-                var selectable = other.GetComponent<Selectable>();
-                selectable.transform.position = pos;
+                Selectable selectable = other.GetComponent<Selectable>();
+                selectable.transform.position = selectablePos[index];
                 currentSelectables[index++] = selectable;
 
                 if (index == 2)
                 {
-                    if (currentSelectables[0].Id == currentSelectables[1].Id)
-                    {
-                        //Might do operator overloading to check selectables
-                        Debug.Log("Merge!");
-                    }
-                    else
-                    {
-                        Debug.Log("Fail!");
-                    }
+                    col.enabled = false;
+                    CheckMerge();
                 }
             }
         }
@@ -51,8 +40,28 @@ namespace Match3D
         {
             if (other.CompareTag(Tags.Selectable))
             {
-                var selectable = other.GetComponent<Selectable>();
+                Selectable selectable = other.GetComponent<Selectable>();
                 currentSelectables[--index] = null;
+
+                if (index == 0)
+                {
+                    col.enabled = true;
+                }
+            }
+        }
+
+        private void CheckMerge()
+        {
+            //Might turn this to a coroutine
+            if (currentSelectables[0] == currentSelectables[1])
+            {
+                Debug.Log("Merge!");
+                Destroy(currentSelectables[0].gameObject);
+                Destroy(currentSelectables[1].gameObject);
+            }
+            else
+            {
+                Debug.Log("Fail!");
             }
         }
     }

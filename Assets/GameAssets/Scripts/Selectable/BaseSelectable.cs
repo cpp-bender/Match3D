@@ -6,7 +6,7 @@ namespace Match3D
     {
         [Header("DEPENDENCIES")]
         [SerializeField] DragData dragData;
-        [SerializeField] int id;
+        [SerializeField] Type type;
 
         [Header("DEBUG")]
         [SerializeField] protected Material selectedMat;
@@ -24,11 +24,9 @@ namespace Match3D
             {
                 Vector3 mouseScreenPos = Input.mousePosition;
                 mouseScreenPos.z = mainCam.WorldToScreenPoint(transform.position).z;
-                return Camera.main.ScreenToWorldPoint(mouseScreenPos);
+                return mainCam.ScreenToWorldPoint(mouseScreenPos);
             }
         }
-
-        public int Id { get => id; }
 
         private void Awake()
         {
@@ -53,5 +51,23 @@ namespace Match3D
         {
             meshRenderer.material = material;
         }
+
+        public static bool operator ==(BaseSelectable s1, BaseSelectable s2)
+        {
+            return (s1.type == s2.type);
+        }
+
+        public static bool operator !=(BaseSelectable s1, BaseSelectable s2)
+        {
+            return (s1.type != s2.type);
+        }
     }
+
+    public enum Type
+    {
+        Cube,
+        Sphere,
+        Capsule,
+        None,
+    };
 }
