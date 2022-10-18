@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Drag Data
   m_EditorClassIdentifier: 
   offset: {x: 0, y: 0, z: 0}
-  maxHeight: 3
+  maxHeight: 2
   duration: 0.05
   minX: 0.1
   maxX: 0.9

@@ -1,38 +1,43 @@
+using System.Collections;
+using DG.Tweening;
 using UnityEngine;
 
 namespace Match3D
 {
     public class MergeArea : MonoBehaviour
     {
-        [Header("COMPONENTS")]
+        [Header("DEPENDENCIES")]
         public Collider col;
+        public Transform mergeSlot;
+        public Transform slot0;
+        public Transform slot1;
 
         [Header("DEBUG")]
-        public Selectable[] currentSelectables;
-        public Vector3[] selectablePos;
-        public int index;
+        public Selectable[] selectables;
+        public int slotIndex = 0;
+
+        private Transform activeSlot
+        {
+            get
+            {
+                return slotIndex == 0 ? slot0 : slot1;
+            }
+            set 
+            {
+
+            }
+        }
 
         private void Awake()
         {
-            currentSelectables = new Selectable[2];
-            selectablePos = new Vector3[]
-                { transform.TransformPoint(-transform.right),
-                transform.TransformPoint(transform.right) };
+            selectables = new Selectable[2];
         }
 
         private void OnTriggerEnter(Collider other)
         {
             if (other.CompareTag(Tags.Selectable))
             {
-                Selectable selectable = other.GetComponent<Selectable>();
-                selectable.transform.position = selectablePos[index];
-                currentSelectables[index++] = selectable;
-
-                if (index == 2)
-                {
-                    col.enabled = false;
-                    CheckMerge();
-                }
+                StartCoroutine(SelectableDropDownRoutine(other.gameObject));
             }
         }
 
@@ -40,28 +45,73 @@ namespace Match3D
         {
             if (other.CompareTag(Tags.Selectable))
             {
-                Selectable selectable = other.GetComponent<Selectable>();
-                currentSelectables[--index] = null;
-
-                if (index == 0)
-                {
-                    col.enabled = true;
-                }
+                StartCoroutine(SelectableMoveUpRoutine(other.gameObject));
             }
         }
 
-        private void CheckMerge()
+        private IEnumerator SelectableDropDownRoutine(GameObject obj)
         {
-            //Might turn this to a coroutine
-            if (currentSelectables[0] == currentSelectables[1])
+            Selectable selectable = obj.GetComponent<Selectable>();
+            selectables[slotIndex] = selectable;
+            Tween move = selectable.transform.DOMove(activeSlot.position, .25f)
+                .SetEase(Ease.OutQuad);
+
+            yield return move.Play().WaitForCompletion();
+
+            if (slotIndex < 1)
             {
-                Debug.Log("Merge!");
-                Destroy(currentSelectables[0].gameObject);
-                Destroy(currentSelectables[1].gameObject);
+                slotIndex++;
+                yield break;
             }
             else
             {
-                Debug.Log("Fail!");
+                TryToMerge();
+            }
+        }
+
+        private IEnumerator SelectableMoveUpRoutine(GameObject obj)
+        {
+            Selectable selectable = obj.GetComponent<Selectable>();
+
+            if (slotIndex > 0)
+            {
+                slotIndex--;
+                selectables[slotIndex] = null;
+            }
+
+            yield return null;
+        }
+
+        private void TryToMerge()
+        {
+            if (selectables[0] == selectables[1])
+            {
+                Merge();
+            }
+            else
+            {
+                RemoveLastSelectable();
+            }
+
+            void Merge()
+            {
+                selectables[0].transform.DOMove(mergeSlot.position, .25f)
+                    .OnComplete(() =>
+                    {
+                        Destroy(selectables[0], .25f);
+                    });
+
+                selectables[1].transform.DOMove(mergeSlot.position, .25f)
+                    .OnComplete(() =>
+                    {
+                        Destroy(selectables[1], .25f);
+                    });
+            }
+
+            void RemoveLastSelectable()
+            {
+                //Todo: Remove last item
+                Debug.Log("cant be merged");
             }
         }
     }
