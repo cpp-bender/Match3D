@@ -66,7 +66,7 @@ namespace Match3D
             }
             else
             {
-                yield return new WaitForSeconds(.5f);
+                yield return new WaitForSeconds(.25f);
                 TryToMerge();
             }
         }
@@ -78,7 +78,6 @@ namespace Match3D
             if (slotIndex > 0)
             {
                 slotIndex--;
-                selectables[slotIndex] = null;
             }
 
             yield return null;
@@ -120,8 +119,9 @@ namespace Match3D
 
             void RemoveLastSelectable()
             {
-                //Todo: Remove last item
-                Debug.Log("cant be merged");
+                selectables[1].GetComponent<Rigidbody>().AddForce(Vector3.forward * 20f, ForceMode.Impulse);
+                selectables[1].GetComponent<Rigidbody>().AddTorque(Vector3.forward * 20f, ForceMode.Impulse);
+                selectables[slotIndex] = null;
             }
         }
     }
