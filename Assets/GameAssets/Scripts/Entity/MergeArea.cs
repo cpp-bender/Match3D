@@ -22,7 +22,7 @@ namespace Match3D
             {
                 return slotIndex == 0 ? slot0 : slot1;
             }
-            set 
+            set
             {
 
             }
@@ -54,6 +54,7 @@ namespace Match3D
             Selectable selectable = obj.GetComponent<Selectable>();
             selectables[slotIndex] = selectable;
             Tween move = selectable.transform.DOMove(activeSlot.position, .25f)
+                .SetAutoKill(true)
                 .SetEase(Ease.OutQuad);
 
             yield return move.Play().WaitForCompletion();
@@ -65,6 +66,7 @@ namespace Match3D
             }
             else
             {
+                yield return new WaitForSeconds(.5f);
                 TryToMerge();
             }
         }
@@ -96,16 +98,24 @@ namespace Match3D
             void Merge()
             {
                 selectables[0].transform.DOMove(mergeSlot.position, .25f)
+                    .OnStart(() =>
+                    {
+                        selectables[0].MergeSetup();
+                    })
                     .OnComplete(() =>
                     {
-                        Destroy(selectables[0], .25f);
-                    });
+                        Destroy(selectables[0].gameObject);
+                    }).Play();
 
                 selectables[1].transform.DOMove(mergeSlot.position, .25f)
+                    .OnStart(() =>
+                    {
+                        selectables[1].MergeSetup();
+                    })
                     .OnComplete(() =>
                     {
-                        Destroy(selectables[1], .25f);
-                    });
+                        Destroy(selectables[1].gameObject);
+                    }).Play();
             }
 
             void RemoveLastSelectable()

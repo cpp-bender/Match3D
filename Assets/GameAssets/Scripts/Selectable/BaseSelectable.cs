@@ -13,8 +13,11 @@ namespace Match3D
         [SerializeField] protected Material unSelectedMat;
         [SerializeField] protected Material stopMat;
 
-        private MeshRenderer meshRenderer;
-        protected Rigidbody body;
+        [Header("COMPONENTS")]
+        [SerializeField] MeshRenderer meshRenderer;
+        [SerializeField] protected Rigidbody body;
+        [SerializeField] Collider col;
+
         private Camera mainCam;
         private Vector3 velocity = Vector3.zero;
 
@@ -30,8 +33,6 @@ namespace Match3D
 
         private void Awake()
         {
-            meshRenderer = GetComponent<MeshRenderer>();
-            body = GetComponent<Rigidbody>();
             mainCam = Camera.main;
         }
 
@@ -60,6 +61,12 @@ namespace Match3D
         public static bool operator !=(BaseSelectable s1, BaseSelectable s2)
         {
             return (s1.type != s2.type);
+        }
+
+        public void MergeSetup()
+        {
+            col.enabled = false;
+            body.isKinematic = true;
         }
     }
 
