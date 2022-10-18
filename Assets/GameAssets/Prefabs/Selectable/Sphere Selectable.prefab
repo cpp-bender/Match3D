@@ -83,7 +83,7 @@ MonoBehaviour:
   stopMat: {fileID: 2100000, guid: 180bf8d67a72e5c4988e0382cc327e72, type: 2}
   meshRenderer: {fileID: 5413447870688100281}
   body: {fileID: 4702503930839425363}
-  col: {fileID: 0}
+  col: {fileID: 4702503930839425364}
 --- !u!1 &5413447870688100283
 GameObject:
   m_ObjectHideFlags: 0

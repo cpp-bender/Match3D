@@ -68,13 +68,13 @@ namespace Match3D
             col.enabled = false;
             body.isKinematic = true;
         }
-    }
 
-    public enum Type
-    {
-        Cube,
-        Sphere,
-        Capsule,
-        None,
-    };
+        public enum Type
+        {
+            Cube,
+            Sphere,
+            Capsule,
+            None,
+        };
+    }
 }

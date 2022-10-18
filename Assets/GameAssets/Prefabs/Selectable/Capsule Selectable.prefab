@@ -167,4 +167,4 @@ MonoBehaviour:
   stopMat: {fileID: 2100000, guid: 180bf8d67a72e5c4988e0382cc327e72, type: 2}
   meshRenderer: {fileID: 1562488038338132370}
   body: {fileID: 2291728401079887736}
-  col: {fileID: 0}
+  col: {fileID: 2291728401079887743}
