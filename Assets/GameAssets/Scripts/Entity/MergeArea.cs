@@ -38,21 +38,12 @@ namespace Match3D
             if (!leftSlot.HasSelectable())
             {
                 leftSlot.PlaceSelectable(selectable);
-                selectable.transform.DOMove(leftSlot.transform.position, .25f)
-                    .SetAutoKill(true)
-                    .SetEase(Ease.OutQuad).Play();
             }
             else if (!rightSlot.HasSelectable())
             {
                 rightSlot.PlaceSelectable(selectable);
-                selectable.transform.DOMove(rightSlot.transform.position, .25f)
-                    .SetAutoKill(true)
-                    .SetEase(Ease.OutQuad)
-                    .OnComplete(() =>
-                    {
-                        TryToMerge();
-                    })
-                    .Play();
+
+                DOVirtual.DelayedCall(.25f, TryToMerge).Play();
             }
         }
 
@@ -64,7 +55,7 @@ namespace Match3D
             {
                 leftSlot.RemoveSelectable();
             }
-            else if(rightSlot.Selectable == selectable)
+            else if (rightSlot.Selectable == selectable)
             {
                 rightSlot.RemoveSelectable();
             }
