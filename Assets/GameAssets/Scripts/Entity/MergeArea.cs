@@ -19,7 +19,7 @@ namespace Match3D
         {
             if (other.CompareTag(Tags.Selectable))
             {
-                DropDownSelectable(other.gameObject);
+                DropDownSelectable(other.GetComponent<Selectable>());
             }
         }
 
@@ -27,13 +27,13 @@ namespace Match3D
         {
             if (other.CompareTag(Tags.Selectable))
             {
-                MoveUpSelectable(other.gameObject);
+                MoveUpSelectable(other.GetComponent<Selectable>());
             }
         }
 
-        private void DropDownSelectable(GameObject obj)
+        private void DropDownSelectable(Selectable selectable)
         {
-            Selectable selectable = obj.GetComponent<Selectable>();
+            float delay = .5f;
 
             if (!leftSlot.HasSelectable())
             {
@@ -43,14 +43,12 @@ namespace Match3D
             {
                 rightSlot.PlaceSelectable(selectable);
 
-                DOVirtual.DelayedCall(.25f, TryToMerge).Play();
+                DOVirtual.DelayedCall(delay, TryToMerge).Play();
             }
         }
 
-        private void MoveUpSelectable(GameObject obj)
+        private void MoveUpSelectable(Selectable selectable)
         {
-            Selectable selectable = obj.GetComponent<Selectable>();
-
             if (leftSlot.Selectable == selectable)
             {
                 leftSlot.RemoveSelectable();
@@ -99,9 +97,10 @@ namespace Match3D
 
             void RemoveLastSelectable()
             {
+                float delay = .25f;
                 rightSlot.Selectable.GetComponent<Rigidbody>().AddForce(Vector3.forward * 20f, ForceMode.Impulse);
                 rightSlot.Selectable.GetComponent<Rigidbody>().AddTorque(Vector3.forward * 20f, ForceMode.Impulse);
-                rightSlot.RemoveSelectable();
+                DOVirtual.DelayedCall(delay, rightSlot.RemoveSelectable);
             }
         }
     }

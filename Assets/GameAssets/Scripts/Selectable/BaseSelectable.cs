@@ -31,6 +31,16 @@ namespace Match3D
             }
         }
 
+        private Vector3 ScreenWorldPos
+        {
+            get
+            {
+                Vector3 pos = new Vector3(Screen.width - 100, Screen.height - 100, 0f);
+                pos.z = mainCam.WorldToScreenPoint(transform.position).z;
+                return mainCam.ScreenToWorldPoint(pos);
+            }
+        }
+
         private void Awake()
         {
             mainCam = Camera.main;
@@ -41,9 +51,13 @@ namespace Match3D
             //TODO: Find a way to calc these magic ints. relative to the screen boundaries
             Vector3 tPos = MouseWorldPos + dragData.Offset;
 
-            tPos.x = Mathf.Clamp(tPos.x, -1f, 1f);
+            //tPos.x = Mathf.Clamp(tPos.x, -1f, 1f);
+            tPos.z = Mathf.Clamp(tPos.z, -6f, 10f);
+            //tPos.y = dragData.MaxHeight;
+
+            tPos.x = Mathf.Clamp(tPos.x, -ScreenWorldPos.x, ScreenWorldPos.x);
             tPos.y = dragData.MaxHeight;
-            tPos.z = Mathf.Clamp(tPos.z, -6f, 1f);
+            //tPos.z = Mathf.Clamp(tPos.z, -ScreenWorldPos.y, ScreenWorldPos.y);
 
             transform.position = Vector3.SmoothDamp(transform.position, tPos, ref velocity, dragData.Duration);
         }

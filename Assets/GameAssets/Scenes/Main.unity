@@ -331,6 +331,11 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 5403489482425517639, guid: b0c1395ab7723104ba04aacf54fc68e4,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5403489482425517640, guid: b0c1395ab7723104ba04aacf54fc68e4,
         type: 3}
       propertyPath: m_RootOrder
@@ -759,6 +764,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Walls
+      objectReference: {fileID: 0}
+    - target: {fileID: 7647803972029346097, guid: e947dc6e2366af04a8681fb1f0eedede,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e947dc6e2366af04a8681fb1f0eedede, type: 3}
