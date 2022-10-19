@@ -1,4 +1,3 @@
-using System.Collections;
 using DG.Tweening;
 using UnityEngine;
 
@@ -9,35 +8,18 @@ namespace Match3D
         [Header("DEPENDENCIES")]
         public Collider col;
         public Transform mergeSlot;
-        public Transform slot0;
-        public Transform slot1;
-
-        [Header("DEBUG")]
-        public Selectable[] selectables;
-        public int slotIndex = 0;
-
-        private Transform activeSlot
-        {
-            get
-            {
-                return slotIndex == 0 ? slot0 : slot1;
-            }
-            set
-            {
-
-            }
-        }
+        public Slot leftSlot;
+        public Slot rightSlot;
 
         private void Awake()
         {
-            selectables = new Selectable[2];
         }
 
         private void OnTriggerEnter(Collider other)
         {
             if (other.CompareTag(Tags.Selectable))
             {
-                StartCoroutine(SelectableDropDownRoutine(other.gameObject));
+                DropDownSelectable(other.gameObject);
             }
         }
 
@@ -45,47 +27,52 @@ namespace Match3D
         {
             if (other.CompareTag(Tags.Selectable))
             {
-                StartCoroutine(SelectableMoveUpRoutine(other.gameObject));
+                MoveUpSelectable(other.gameObject);
             }
         }
 
-        private IEnumerator SelectableDropDownRoutine(GameObject obj)
+        private void DropDownSelectable(GameObject obj)
         {
             Selectable selectable = obj.GetComponent<Selectable>();
-            selectables[slotIndex] = selectable;
-            Tween move = selectable.transform.DOMove(activeSlot.position, .25f)
-                .SetAutoKill(true)
-                .SetEase(Ease.OutQuad);
 
-            yield return move.Play().WaitForCompletion();
-
-            if (slotIndex < 1)
+            if (!leftSlot.HasSelectable())
             {
-                slotIndex++;
-                yield break;
+                leftSlot.PlaceSelectable(selectable);
+                selectable.transform.DOMove(leftSlot.transform.position, .25f)
+                    .SetAutoKill(true)
+                    .SetEase(Ease.OutQuad).Play();
             }
-            else
+            else if (!rightSlot.HasSelectable())
             {
-                yield return new WaitForSeconds(.25f);
-                TryToMerge();
+                rightSlot.PlaceSelectable(selectable);
+                selectable.transform.DOMove(rightSlot.transform.position, .25f)
+                    .SetAutoKill(true)
+                    .SetEase(Ease.OutQuad)
+                    .OnComplete(() =>
+                    {
+                        TryToMerge();
+                    })
+                    .Play();
             }
         }
 
-        private IEnumerator SelectableMoveUpRoutine(GameObject obj)
+        private void MoveUpSelectable(GameObject obj)
         {
             Selectable selectable = obj.GetComponent<Selectable>();
 
-            if (slotIndex > 0)
+            if (leftSlot.Selectable == selectable)
             {
-                slotIndex--;
+                leftSlot.RemoveSelectable();
             }
-
-            yield return null;
+            else if(rightSlot.Selectable == selectable)
+            {
+                rightSlot.RemoveSelectable();
+            }
         }
 
         private void TryToMerge()
         {
-            if (selectables[0] == selectables[1])
+            if (leftSlot.Selectable == rightSlot.Selectable)
             {
                 Merge();
             }
@@ -96,32 +83,34 @@ namespace Match3D
 
             void Merge()
             {
-                selectables[0].transform.DOMove(mergeSlot.position, .25f)
+                leftSlot.Selectable.transform.DOMove(mergeSlot.position, .25f)
                     .OnStart(() =>
                     {
-                        selectables[0].MergeSetup();
+                        leftSlot.Selectable.MergeSetup();
                     })
                     .OnComplete(() =>
                     {
-                        Destroy(selectables[0].gameObject);
+                        Destroy(leftSlot.Selectable.gameObject);
+                        leftSlot.RemoveSelectable();
                     }).Play();
 
-                selectables[1].transform.DOMove(mergeSlot.position, .25f)
+                rightSlot.Selectable.transform.DOMove(mergeSlot.position, .25f)
                     .OnStart(() =>
                     {
-                        selectables[1].MergeSetup();
+                        rightSlot.Selectable.MergeSetup();
                     })
                     .OnComplete(() =>
                     {
-                        Destroy(selectables[1].gameObject);
+                        Destroy(rightSlot.Selectable.gameObject);
+                        rightSlot.RemoveSelectable();
                     }).Play();
             }
 
             void RemoveLastSelectable()
             {
-                selectables[1].GetComponent<Rigidbody>().AddForce(Vector3.forward * 20f, ForceMode.Impulse);
-                selectables[1].GetComponent<Rigidbody>().AddTorque(Vector3.forward * 20f, ForceMode.Impulse);
-                selectables[slotIndex] = null;
+                rightSlot.Selectable.GetComponent<Rigidbody>().AddForce(Vector3.forward * 20f, ForceMode.Impulse);
+                rightSlot.Selectable.GetComponent<Rigidbody>().AddTorque(Vector3.forward * 20f, ForceMode.Impulse);
+                rightSlot.RemoveSelectable();
             }
         }
     }
