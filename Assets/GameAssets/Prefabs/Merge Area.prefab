@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 5403489482098953947}
   - component: {fileID: 5403489482098953948}
   - component: {fileID: 5403489482098953949}
+  - component: {fileID: 726795120}
   m_Layer: 6
   m_Name: Slot 1
   m_TagString: Untagged
@@ -83,6 +84,19 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &726795120
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5403489482098953944}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec7b959e6d87cba43852ded0f8f9dab5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  selectable: {fileID: 0}
 --- !u!1 &5403489482130600348
 GameObject:
   m_ObjectHideFlags: 0
@@ -94,6 +108,7 @@ GameObject:
   - component: {fileID: 5403489482130600351}
   - component: {fileID: 5403489482130600320}
   - component: {fileID: 5403489482130600321}
+  - component: {fileID: 1787805006}
   m_Layer: 6
   m_Name: Slot 0
   m_TagString: Untagged
@@ -166,6 +181,19 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &1787805006
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5403489482130600348}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec7b959e6d87cba43852ded0f8f9dab5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  selectable: {fileID: 0}
 --- !u!1 &5403489482179288156
 GameObject:
   m_ObjectHideFlags: 0
@@ -192,7 +220,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5403489482179288156}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.5, z: 0}
+  m_LocalPosition: {x: 0, y: -0.26, z: 0}
   m_LocalScale: {x: 5, y: 1, z: 3}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -260,6 +288,7 @@ GameObject:
   - component: {fileID: 5403489482290248430}
   - component: {fileID: 5403489482290248400}
   - component: {fileID: 5403489482290248401}
+  - component: {fileID: 1042178353}
   m_Layer: 6
   m_Name: Merge Slot
   m_TagString: Untagged
@@ -332,6 +361,19 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &1042178353
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5403489482290248431}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec7b959e6d87cba43852ded0f8f9dab5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  selectable: {fileID: 0}
 --- !u!1 &5403489482425517639
 GameObject:
   m_ObjectHideFlags: 0
@@ -343,7 +385,7 @@ GameObject:
   - component: {fileID: 5403489482425517640}
   - component: {fileID: 5403489482425517641}
   - component: {fileID: 5403489482425517638}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Merge Area
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -380,8 +422,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 5.0387564, y: 1.0220498, z: 3.1326323}
-  m_Center: {x: 0.0009822845, y: 0.48365325, z: -0.0034103394}
+  m_Size: {x: 5.0387564, y: 1.4524342, z: 3.1326323}
+  m_Center: {x: 0.0009822845, y: 0.69884545, z: -0.0034103394}
 --- !u!114 &5403489482425517638
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -396,7 +438,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   col: {fileID: 5403489482425517641}
   mergeSlot: {fileID: 5403489482290248430}
-  slot0: {fileID: 5403489482130600351}
-  slot1: {fileID: 5403489482098953947}
-  selectables: []
-  slotIndex: 0
+  leftSlot: {fileID: 1787805006}
+  rightSlot: {fileID: 726795120}

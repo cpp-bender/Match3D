@@ -2,7 +2,6 @@ using UnityEngine;
 
 namespace Match3D
 {
-    [RequireComponent(typeof(Collider))]
     public class Selectable : BaseSelectable
     {
         private void OnMouseDown()

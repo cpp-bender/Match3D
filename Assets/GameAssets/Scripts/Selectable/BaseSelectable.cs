@@ -2,6 +2,7 @@ using UnityEngine;
 
 namespace Match3D
 {
+    [RequireComponent(typeof(Collider)), SelectionBase]
     public abstract class BaseSelectable : MonoBehaviour
     {
         [Header("DEPENDENCIES")]
