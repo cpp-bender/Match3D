@@ -8,8 +8,10 @@ namespace Match3D
         [Header("DEPENDENCIES")]
         [SerializeField] DragData dragData;
         [SerializeField] Type type;
+        [SerializeField] Vector3 placeRot = Vector3.zero;
 
         [Header("DEBUG")]
+        [SerializeField] protected Status status;
         [SerializeField] protected Material selectedMat;
         [SerializeField] protected Material unSelectedMat;
         [SerializeField] protected Material stopMat;
@@ -18,6 +20,9 @@ namespace Match3D
         [SerializeField] MeshRenderer meshRenderer;
         [SerializeField] protected Rigidbody body;
         [SerializeField] Collider col;
+
+        [Header("LISTENING ON")]
+        [SerializeField] IntEventChannel statusChange;
 
         private Camera mainCam;
         private Vector3 velocity = Vector3.zero;
@@ -42,9 +47,12 @@ namespace Match3D
             }
         }
 
+        public Vector3 PlaceRot { get => placeRot; private set => placeRot = value; }
+
         private void Awake()
         {
             mainCam = Camera.main;
+            statusChange.Event += OnStatusChanged;
         }
 
         protected void OnDragging()
@@ -84,12 +92,23 @@ namespace Match3D
             body.isKinematic = true;
         }
 
+        private void OnStatusChanged(int status)
+        {
+            this.status = (Status)status;
+        }
+
         public enum Type
         {
             Cube,
             Sphere,
             Capsule,
             None,
+        };
+
+        public enum Status
+        {
+            Idle,
+            Placed,
         };
     }
 }

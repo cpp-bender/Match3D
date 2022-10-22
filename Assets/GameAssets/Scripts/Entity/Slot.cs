@@ -8,18 +8,29 @@ namespace Match3D
         [Header("DEBUG")]
         [SerializeField] Selectable selectable;
 
+        [Header("BROADCASTING")]
+        [SerializeField] IntEventChannel statusChange;
+
         public Selectable Selectable { get => selectable; private set => selectable = value; }
 
         public void PlaceSelectable(Selectable sel)
         {
             selectable = sel;
-            sel.transform.DOMove(transform.position, .25f)
+            selectable.transform.DORotate(selectable.PlaceRot, .25f)
                 .SetAutoKill(true)
-                .SetEase(Ease.OutQuad).Play();
+                .SetEase(Ease.OutQuad)
+                .Play();
+            selectable.transform.DOMove(transform.position, .25f)
+                .SetAutoKill(true)
+                .SetEase(Ease.OutQuad)
+                .Play();
+
+            statusChange.Raise(1);
         }
 
         public void RemoveSelectable()
         {
+            statusChange.Raise(0);
             selectable = null;
         }
 

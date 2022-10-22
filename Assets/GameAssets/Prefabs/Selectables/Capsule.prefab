@@ -96,7 +96,7 @@ GameObject:
   - component: {fileID: 2291728401079887736}
   - component: {fileID: 2291728401079887737}
   m_Layer: 0
-  m_Name: Capsule Selectable
+  m_Name: Capsule
   m_TagString: Selectable
   m_Icon: {fileID: 1206586993520771344, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -160,11 +160,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 329ccfd84541a124fb2960ce8e149631, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dragData: {fileID: 11400000, guid: 6707494b542faf44f977227e4e66dbd2, type: 2}
+  dragData: {fileID: 11400000, guid: 8f63c1cb326615d4ba933360df82b6b3, type: 2}
   type: 2
+  placeRot: {x: 0, y: 0, z: 0}
+  status: 0
   selectedMat: {fileID: 2100000, guid: 2b8b242f48474024eba3e6dca705773d, type: 2}
   unSelectedMat: {fileID: 2100000, guid: 85e0d7392317b0645a3bb49447872883, type: 2}
   stopMat: {fileID: 2100000, guid: 180bf8d67a72e5c4988e0382cc327e72, type: 2}
   meshRenderer: {fileID: 1562488038338132370}
   body: {fileID: 2291728401079887736}
   col: {fileID: 2291728401079887743}
+  statusChange: {fileID: 11400000, guid: 2f30e94c803ba324483e446d47837546, type: 2}

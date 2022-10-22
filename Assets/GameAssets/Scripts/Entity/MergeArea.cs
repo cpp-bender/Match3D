@@ -98,8 +98,8 @@ namespace Match3D
             void RemoveLastSelectable()
             {
                 float delay = .25f;
-                rightSlot.Selectable.GetComponent<Rigidbody>().AddForce(Vector3.forward * 20f, ForceMode.Impulse);
-                rightSlot.Selectable.GetComponent<Rigidbody>().AddTorque(Vector3.forward * 20f, ForceMode.Impulse);
+                rightSlot.Selectable.GetComponent<Rigidbody>().AddForce(Vector3.forward * 10F, ForceMode.Impulse);
+                rightSlot.Selectable.GetComponent<Rigidbody>().AddTorque(Vector3.forward * 10F, ForceMode.Impulse);
                 DOVirtual.DelayedCall(delay, rightSlot.RemoveSelectable);
             }
         }

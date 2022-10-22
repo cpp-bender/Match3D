@@ -97,6 +97,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   selectable: {fileID: 0}
+  statusChange: {fileID: 11400000, guid: 2f30e94c803ba324483e446d47837546, type: 2}
 --- !u!1 &5403489482130600348
 GameObject:
   m_ObjectHideFlags: 0
@@ -194,6 +195,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   selectable: {fileID: 0}
+  statusChange: {fileID: 11400000, guid: 2f30e94c803ba324483e446d47837546, type: 2}
 --- !u!1 &5403489482179288156
 GameObject:
   m_ObjectHideFlags: 0
@@ -374,6 +376,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   selectable: {fileID: 0}
+  statusChange: {fileID: 0}
 --- !u!1 &5403489482425517639
 GameObject:
   m_ObjectHideFlags: 0

@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 4702503930839425363}
   - component: {fileID: 4702503930839425362}
   m_Layer: 0
-  m_Name: Sphere Selectable
+  m_Name: Sphere
   m_TagString: Selectable
   m_Icon: {fileID: 1206586993520771344, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -78,12 +78,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dragData: {fileID: 11400000, guid: 6707494b542faf44f977227e4e66dbd2, type: 2}
   type: 1
+  placeRot: {x: 0, y: 0, z: 0}
+  status: 0
   selectedMat: {fileID: 2100000, guid: 2b8b242f48474024eba3e6dca705773d, type: 2}
   unSelectedMat: {fileID: 2100000, guid: 85e0d7392317b0645a3bb49447872883, type: 2}
   stopMat: {fileID: 2100000, guid: 180bf8d67a72e5c4988e0382cc327e72, type: 2}
   meshRenderer: {fileID: 5413447870688100281}
   body: {fileID: 4702503930839425363}
   col: {fileID: 4702503930839425364}
+  statusChange: {fileID: 11400000, guid: 2f30e94c803ba324483e446d47837546, type: 2}
 --- !u!1 &5413447870688100283
 GameObject:
   m_ObjectHideFlags: 0
