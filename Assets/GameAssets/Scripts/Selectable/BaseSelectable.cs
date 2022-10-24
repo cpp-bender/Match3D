@@ -71,6 +71,21 @@ namespace Match3D
             transform.position = Vector3.SmoothDamp(transform.position, tPos, ref velocity, dragData.Duration);
         }
 
+        protected void MouseDownSetup()
+        {
+            body.useGravity = false;
+            body.isKinematic = false;
+            body.velocity *= 0f;
+            SetMaterial(selectedMat);
+        }
+
+        protected void MouseUpSetup()
+        {
+            body.useGravity = true;
+            body.isKinematic = false;
+            SetMaterial(unSelectedMat);
+        }
+
         protected void SetMaterial(Material material)
         {
             meshRenderer.material = material;

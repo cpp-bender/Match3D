@@ -16,13 +16,24 @@ namespace Match3D
         public void PlaceSelectable(Selectable sel)
         {
             selectable = sel;
-            selectable.transform.DORotate(selectable.PlaceRot, .25f)
+
+            var seq = DOTween.Sequence();
+
+            Tween rotate = selectable.transform.DORotate(selectable.PlaceRot, .25f)
                 .SetAutoKill(true)
-                .SetEase(Ease.OutQuad)
-                .Play();
-            selectable.transform.DOMove(transform.position, .25f)
+                .SetEase(Ease.OutQuad);
+            Tween move = selectable.transform.DOMove(transform.position, .25f)
                 .SetAutoKill(true)
-                .SetEase(Ease.OutQuad)
+                .SetEase(Ease.OutQuad);
+
+            seq.Append(move).Join(rotate)
+                .OnStart(() =>
+                {
+
+                })
+                .OnComplete(() =>
+                {
+                })
                 .Play();
 
             statusChange.Raise(1);

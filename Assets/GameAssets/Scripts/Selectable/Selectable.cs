@@ -6,14 +6,12 @@ namespace Match3D
     {
         private void OnMouseDown()
         {
-            body.useGravity = false;
-            SetMaterial(selectedMat);
+            MouseDownSetup();
         }
 
         private void OnMouseUp()
         {
-            body.useGravity = true;
-            SetMaterial(unSelectedMat);
+            MouseUpSetup();
         }
 
         private void OnMouseDrag()
