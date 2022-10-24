@@ -75,7 +75,7 @@ namespace Match3D
         {
             body.useGravity = false;
             body.isKinematic = false;
-            body.velocity *= 0f;
+            body.velocity = Vector3.zero;
             SetMaterial(selectedMat);
         }
 

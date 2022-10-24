@@ -302,6 +302,7 @@ GameObject:
   - component: {fileID: 8369515708106080632}
   - component: {fileID: 8369515708106080635}
   - component: {fileID: 8369515708106080639}
+  - component: {fileID: 6372405755259289213}
   m_Layer: 5
   m_Name: Timer HUD
   m_TagString: Untagged
@@ -404,3 +405,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timerText: {fileID: 8369515707496762057}
+  canvasGroup: {fileID: 6372405755259289213}
+  gameStartEvent: {fileID: 11400000, guid: 87f9dd83043ca0d4f96e1a9fe6f51d47, type: 2}
+--- !u!225 &6372405755259289213
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8369515708106080634}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
