@@ -14,11 +14,5 @@ namespace Match3D
 		{
 			DOTween.Init(this);
 		}
-
-		private IEnumerator Start()
-		{
-			yield return new WaitForMouseDown();
-			gameStartEvent.Raise();
-		}
     }
 }
