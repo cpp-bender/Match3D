@@ -8,9 +8,6 @@ namespace Match3D
         [Header("DEBUG")]
         [SerializeField] Selectable selectable;
 
-        [Header("BROADCASTING")]
-        [SerializeField] IntEventChannel statusChange;
-
         public Selectable Selectable { get => selectable; private set => selectable = value; }
 
         public void PlaceSelectable(Selectable sel)
@@ -19,29 +16,27 @@ namespace Match3D
 
             var seq = DOTween.Sequence();
 
-            Tween rotate = selectable.transform.DORotate(selectable.PlaceRot, .25f)
+            Tween rotate = selectable.transform.DORotate(selectable.PlaceRot, .5f)
                 .SetAutoKill(true)
                 .SetEase(Ease.OutQuad);
-            Tween move = selectable.transform.DOMove(transform.position, .25f)
+            Tween move = selectable.transform.DOMove(transform.position, .5f)
                 .SetAutoKill(true)
                 .SetEase(Ease.OutQuad);
 
             seq.Append(move).Join(rotate)
                 .OnStart(() =>
                 {
-
+                    selectable.DoPlaceSetup();
                 })
                 .OnComplete(() =>
                 {
                 })
                 .Play();
-
-            statusChange.Raise(1);
         }
 
         public void RemoveSelectable()
         {
-            statusChange.Raise(0);
+            selectable.DoUnPlaceSetup();
             selectable = null;
         }
 

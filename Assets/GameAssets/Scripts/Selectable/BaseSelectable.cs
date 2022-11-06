@@ -11,7 +11,6 @@ namespace Match3D
         [SerializeField] Vector3 placeRot = Vector3.zero;
 
         [Header("DEBUG")]
-        [SerializeField] protected Status status;
         [SerializeField] protected Material selectedMat;
         [SerializeField] protected Material unSelectedMat;
         [SerializeField] protected Material stopMat;
@@ -20,9 +19,6 @@ namespace Match3D
         [SerializeField] MeshRenderer meshRenderer;
         [SerializeField] protected Rigidbody body;
         [SerializeField] Collider col;
-
-        [Header("LISTENING ON")]
-        [SerializeField] IntEventChannel statusChange;
 
         private Camera mainCam;
         private Vector3 velocity = Vector3.zero;
@@ -52,7 +48,6 @@ namespace Match3D
         private void Awake()
         {
             mainCam = Camera.main;
-            statusChange.Event += OnStatusChanged;
         }
 
         protected void OnDragging()
@@ -107,9 +102,14 @@ namespace Match3D
             body.isKinematic = true;
         }
 
-        private void OnStatusChanged(int status)
+        public void DoPlaceSetup()
         {
-            this.status = (Status)status;
+            body.constraints = RigidbodyConstraints.FreezeAll;
+        }
+
+        public void DoUnPlaceSetup()
+        {
+            body.constraints = RigidbodyConstraints.None;
         }
 
         public enum Type
@@ -118,12 +118,6 @@ namespace Match3D
             Sphere,
             Capsule,
             None,
-        };
-
-        public enum Status
-        {
-            Idle,
-            Placed,
         };
     }
 }

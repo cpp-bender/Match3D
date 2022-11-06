@@ -33,8 +33,6 @@ namespace Match3D
 
         private void DropDownSelectable(Selectable selectable)
         {
-            float delay = .5f;
-
             if (!leftSlot.HasSelectable())
             {
                 leftSlot.PlaceSelectable(selectable);
@@ -43,7 +41,7 @@ namespace Match3D
             {
                 rightSlot.PlaceSelectable(selectable);
 
-                DOVirtual.DelayedCall(delay, TryToMerge).Play();
+                DOVirtual.DelayedCall(.5f, TryToMerge).Play();
             }
         }
 
@@ -98,8 +96,9 @@ namespace Match3D
             void RemoveLastSelectable()
             {
                 float delay = .25f;
+                rightSlot.Selectable.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
                 rightSlot.Selectable.GetComponent<Rigidbody>().AddForce(Vector3.forward * 10F, ForceMode.Impulse);
-                rightSlot.Selectable.GetComponent<Rigidbody>().AddTorque(Vector3.forward * 10F, ForceMode.Impulse);
+                rightSlot.Selectable.GetComponent<Rigidbody>().AddTorque(Vector3.up * 3F, ForceMode.Impulse);
                 DOVirtual.DelayedCall(delay, rightSlot.RemoveSelectable);
             }
         }
